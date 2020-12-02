@@ -38,3 +38,17 @@ async def search_by_county_code(code: str):
 
     else:
         raise HTTPException(status_code=400, detail="Country code was in the incorrect format.")
+
+
+@app.get("search/CountryName/{name}", tags=["SCountry,CountrySearch"])
+async def search_by_country_name(name: str):
+    """
+        Searches for a Country or Countries based on the passed name
+        Will check if the passed name contains only Alphabetic characters
+            If the check fails a 400 Status code is returned
+            Otherwise it returns the Country/Countries information
+
+    :param name: The full or partial name of the country being looked up
+    :return: The Country or Countries data as json, or a status code and a message describing the problem
+    """
+    raise NotImplemented

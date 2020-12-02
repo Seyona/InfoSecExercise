@@ -14,11 +14,14 @@ async def read_root() -> dict:
 
 
 @app.get("/search/CountryCode/{code}", tags=["SCC", "CC"])
-async def SearchByCountyCode(code: str):
-    """ Searches for a country by its Country code
+async def search_by_county_code(code: str):
+    """ Searches for a Country by its Country code
         Checks if the passed code is 2 or 3 characters in length, and that is only Alphabetical characters
             If the check fails a 400 HTTP status code is returned
             Otherwise, return the country's information
+
+            :param code: Country code that is being looked up
+            :return: The Country's data as json, or a status code and a message describing the problem
     """
 
     if re.search('[a-zA-Z][a-zA-Z][a-zA-Z]?', code):  # Check that the passed code is 2 or 3 Alphabetical chars

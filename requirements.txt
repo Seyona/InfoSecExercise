@@ -1,0 +1,4 @@
+fastapi==0.61.2
+uvicorn==0.12.2
+requests==2.24.0
+numerize==0.12

@@ -27,12 +27,12 @@ async def search_by_county_code(code: str):
     pattern = re.compile('[a-zA-Z][a-zA-Z][a-zA-Z]?')
     if pattern.fullmatch(code) is not None:  # Check that the passed code is 2 or 3 Alphabetical chars
         response = requests.get(f'https://restcountries.eu/rest/v2/alpha/{code}')
-        if response.reason == 'OK':
+        if response.status_code == 200:
             country = Country(response.json())
             countryJson = json.dumps(country.__dict__)
 
             return {"data": countryJson}
-        elif response.status_code == "404":
+        elif response.status_code == 404:
             raise HTTPException(status_code=404, detail="A country with the given code does not exist,"
                                                         " or there is a connection issue to the external API.")
         else:
@@ -59,7 +59,7 @@ async def search_by_country_name(name: str):
         # Get all partial matches for the passed name
         response = requests.get(f'https://restcountries.eu/rest/v2/name/{name}')
 
-        if response.reason == 'OK':
+        if response.status_code == 200:
             countries = []
             country_data = response.json()
 

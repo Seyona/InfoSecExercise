@@ -78,8 +78,8 @@ async def search_by_country_name(name: str):
             countries = []
             country_data = response.json()
 
-            for key in country_data:
-                country = Country(country_data[key])
+            for value in country_data:
+                country = Country(value)
                 countries.append(country.__dict__)
 
             return {"data": json.dumps(countries)}

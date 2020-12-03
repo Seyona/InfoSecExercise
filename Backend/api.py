@@ -36,7 +36,7 @@ async def search_by_county_code(code: str):
             raise HTTPException(status_code=404, detail="A country with the given code does not exist,"
                                                         " or there is a connection issue to the external API.")
         else:
-            raise HTTPException(status_code=response.status_code, detail="Unexpected status code returned.")
+            raise HTTPException(status_code=response.status_code, detail=response.json()["message"])
 
     else:
         raise HTTPException(status_code=400, detail="Passed Country code is not properly formatted."

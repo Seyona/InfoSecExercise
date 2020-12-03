@@ -37,7 +37,8 @@ async def search_by_county_code(code: str):
             raise HTTPException(status_code=response.status_code, detail="Unexpected status code returned.")
 
     else:
-        raise HTTPException(status_code=400, detail="Passed Country code is not properly formatted.")
+        raise HTTPException(status_code=400, detail="Passed Country code is not properly formatted."
+                                                    "They should be 2 to 3 Alphabetical characters")
 
 
 @app.get("search/CountryName/{name}", tags=["SCountry,CountrySearch"])

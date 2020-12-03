@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title> Country Search </title>
+    <link rel = "stylesheet"
+          type = "text/css"
+          href="style.css"/>
+
+</head>
+<body>
+    <div class="center" id="search" >
+        <label for="country-search">Country Search</label>
+        <input type="search" class="country-search" id="country-search" name="country-search"
+               aria-label="Search for a Country by name or code">
+        <select name="search-type" id="search-type">
+            <option value="cn"> Country Name </option>
+            <option value="cc"> Country Code </option>
+        </select>
+        <button id="search-button" class="search-button" disabled> Search </button>
+    </div>
+
+    <div class="center" id="country-info">
+
+    </div>
+
+
+    <script src="CountrySearch.js" type="module"></script>
+</body>
+</html>

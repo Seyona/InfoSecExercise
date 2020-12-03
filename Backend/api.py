@@ -53,4 +53,25 @@ async def search_by_country_name(name: str):
     :param name: The full or partial name of the country being looked up
     :return: The Country or Countries data as json, or a status code and a message describing the problem
     """
-    raise NotImplemented
+
+    if name.isalpha():
+        # Get all partial matches for the passed name
+        response = requests.get(f'https://restcountries.eu/rest/v2/name/{name}')
+
+        if response.reason == 'OK':
+            countries = []
+            country_data = response.json()
+
+            for key in country_data:
+                country = Country(country_data[key])
+                countries.append(country.__dict__)
+
+            return {"data": json.dumps(countries)}
+
+        elif response.status_code == 404:
+            raise HTTPException(status_code=404, detail="A country with the given name does not exist,"
+                                                        " or there is a connection issue to the external API.")
+        else:
+            raise HTTPException(status_code=response.status_code, detail=response.json()["message"])
+    else:
+        raise HTTPException(status_code=400, detail="Country name should only contain Alphabetical characters")

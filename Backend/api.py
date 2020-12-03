@@ -24,7 +24,8 @@ async def search_by_county_code(code: str):
             :return: The Country's data as json, or a status code and a message describing the problem
     """
 
-    if re.search('[a-zA-Z][a-zA-Z][a-zA-Z]?', code):  # Check that the passed code is 2 or 3 Alphabetical chars
+    pattern = re.compile('[a-zA-Z][a-zA-Z][a-zA-Z]?')
+    if pattern.fullmatch(code) is not None:  # Check that the passed code is 2 or 3 Alphabetical chars
         response = requests.get(f'https://restcountries.eu/rest/v2/alpha/{code}')
         if response.reason == 'OK':
             country = Country(response.json())

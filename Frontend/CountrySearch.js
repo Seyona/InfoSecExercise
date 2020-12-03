@@ -19,11 +19,18 @@ async function SearchCountry() {
     var searchType = document.getElementById('search-type').value
     if (searchType === 'cc') {
         let countryData = await GetCountryByCountryCode(country);
-        console.log(countryData);
+        if (countryData !== null) {
+            var country = JSON.parse(countryData.data);
+            console.log(country)
+        }
+
     } else // searching by name
     {
         let countryData = await GetCountryByCountryName(country);
-        console.log(countryData);
+        if (countryData !== null) {
+            var countries = JSON.parse(countryData.data);
+            countries.forEach(country => console.log(country));
+        }
     }
 }
 

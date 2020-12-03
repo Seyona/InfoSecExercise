@@ -58,7 +58,7 @@ async def search_by_county_code(code: str):
                                                     "They should be 2 to 3 Alphabetical characters")
 
 
-@app.get("search/CountryName/{name}", tags=["SCountry,CountrySearch"])
+@app.get("/search/CountryName/{name}", tags=["SCountry,CountrySearch"])
 async def search_by_country_name(name: str):
     """
         Searches for a Country or Countries based on the passed name

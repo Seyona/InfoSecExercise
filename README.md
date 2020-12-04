@@ -9,7 +9,14 @@ To start the api server run:
 
 ` py Backend/main.py `
 
-Launch `index.html` in your favorite web browser. Type in your country of name 
-or substring of choice to search for. 
+You will also need to host a your own webserver with python. To do so, cd to the directory **above** the InfosecExercise folder and run
 
-If you want to search by country code, click the drop down by the search bar and select "Country code".
+`py -m http.server`
+
+This will start serving HTTP on port 8000
+
+In your favorite browser, navigate to `http://localhost:8000/InfoSecExercise/Frontend/index.html`
+
+You'll see a text box where you can type in the name of a country, or a substring of it, to search for them.
+
+If you want to search by country code, click the drop down to the right of the search bar and select "Country Code".

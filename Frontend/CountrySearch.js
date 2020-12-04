@@ -1,22 +1,25 @@
-const searchBox = document.querySelector('.country-search')
-const submitButton = document.querySelector('.search-button')
+const searchBox = document.querySelector('.country-search');
+const submitButton = document.querySelector('.search-button');
 
 searchBox.addEventListener('change', (event) => {
-    var textVal = document.getElementById('country-search').value
+    var textVal = document.getElementById('country-search').value;
     if (textVal.trim() == '') {
-        document.getElementById("search-button").disabled = true
+        document.getElementById("search-button").disabled = true;
     }
     else
     {
-        document.getElementById("search-button").disabled = false
+        document.getElementById("search-button").disabled = false;
     }
 });
 
 submitButton.addEventListener('click', SearchCountry, false);
 
 async function SearchCountry() {
-    var country = document.getElementById('country-search').value
-    var searchType = document.getElementById('search-type').value
+    var country = document.getElementById('country-search').value;
+    var searchType = document.getElementById('search-type').value;
+
+    var document.getElementById('country-data');
+
     if (searchType === 'cc') {
         let countryData = await GetCountryByCountryCode(country);
         if (countryData !== null) {

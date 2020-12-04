@@ -80,9 +80,15 @@ async def search_by_country_name(name: str):
 
             for value in country_data:
                 country = Country(value)
-                countries.append(country.__dict__)
+                countries.append(country)
 
-            return {"data": json.dumps(countries)}
+            countries.sort(key=lambda x: x.population, reverse=False)
+            sorted_countries = []
+            for country in countries:
+                country.numerizePopulation()
+                sorted_countries.append(country.__dict__)
+
+            return {"data": json.dumps(sorted_countries)}
 
         elif response.status_code == 404:
             return PlainTextResponse("A country with the given name does not exist,"

@@ -48,7 +48,7 @@ function CreateCountryDiv(country) {
             var countryDiv = document.createElement('div');
             countryDiv.id = country.alpha2;
             countryDiv.name = country.alpha2;
-            countryDiv.style.textAlign = "center";
+            countryDiv.style.paddingLeft = "500px"; // Proof of concept to show that the elements should be centered
 
             // Create the first span for the Country's name and picture
             var namePicDiv = document.createElement('div');

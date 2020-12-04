@@ -11,7 +11,11 @@ class Country:
         self.flag = data["flag"]
         self.region = data["region"]
         self.sub_region = data["subregion"]
-        self.population = numerize.numerize(int(data["population"]))
+        self.population = int(data["population"])
         self.languages = []
         for lang in data["languages"]:
             self.languages.append(lang["name"])
+
+    def numerizePopulation(self):
+        """ Numerizes the population. If you want to sort by population call this AFTER you are done sorting """
+        self.population = numerize.numerize(self.population)

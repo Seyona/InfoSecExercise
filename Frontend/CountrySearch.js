@@ -154,7 +154,7 @@ function createLi(parentUl, liDescriptor, liData) {
     Reaches out to the Country Code API and pulls back the Country's data
 */
 async function GetCountryByCountryCode(code) {
-     const resp = await fetch("http://localhost:8000/search/CountryCode/" + code)
+     const resp = await fetch("http://localhost:7000/search/CountryCode/" + code)
     .then(handleErrors)
     .then(response => response.json())
     .then(json => {
@@ -176,7 +176,7 @@ async function GetCountryByCountryCode(code) {
         Note this will pull back multiple countries if the passed name is a partial match
 */
 async function GetCountryByCountryName(name) {
-     const resp = await fetch("http://localhost:8000/search/CountryName/" + name)
+     const resp = await fetch("http://localhost:7000/search/CountryName/" + name)
     .then(handleErrors)
     .then(response => response.json())
     .then(json => {

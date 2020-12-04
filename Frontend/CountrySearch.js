@@ -18,13 +18,13 @@ async function SearchCountry() {
     var country = document.getElementById('country-search').value;
     var searchType = document.getElementById('search-type').value;
 
-    var document.getElementById('country-data');
+    var countryInfoDiv = document.getElementById('country-data');
 
     if (searchType === 'cc') {
         let countryData = await GetCountryByCountryCode(country);
         if (countryData !== null) {
             var country = JSON.parse(countryData.data);
-            console.log(country)
+            CreateCountryDiv(country);
         }
 
     } else // searching by name
@@ -32,7 +32,11 @@ async function SearchCountry() {
         let countryData = await GetCountryByCountryName(country);
         if (countryData !== null) {
             var countries = JSON.parse(countryData.data);
-            countries.forEach(country => console.log(country));
+            countries.forEach(country => {
+                CreateCountryDiv(country);
+                var br = document.createElement('br');
+                document.getElementById('country-info').appendChild(br);
+            });
         }
     }
 }

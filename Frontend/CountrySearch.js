@@ -51,8 +51,10 @@ async function GetCountryByCountryCode(code) {
        return json;
     })
     .catch(error => {
-        alert(error);
-        console.log(error);
+        error.text().then(errorMessage => {
+            alert(errorMessage);
+            console.log(errorMessage);
+        });
         return null;
     });
 
@@ -71,8 +73,10 @@ async function GetCountryByCountryName(name) {
        return json;
     })
     .catch(error => {
-        alert(error);
-        console.log(error);
+        error.text().then(errorMessage => {
+            alert(errorMessage);
+            console.log(errorMessage);
+        });
         return null;
     });
 
@@ -82,7 +86,7 @@ async function GetCountryByCountryName(name) {
 // Helper function to parse errors from fetch
 function handleErrors(response) {
     if (!response.ok) {
-        throw Error(response.statusText);
+        throw response; // throw response and parse it in the catch
     }
     return response;
 }

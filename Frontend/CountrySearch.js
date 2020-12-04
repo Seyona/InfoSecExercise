@@ -38,8 +38,41 @@ async function SearchCountry() {
                 var br = document.createElement('br');
                 document.getElementById('country-info').appendChild(br);
             });
+            CompileStats(countries);
         }
     }
+}
+
+/**
+    Compiles the following items for the array of countries
+    Total number of Countries
+    A list of all regions and subregions and their appearances
+*/
+function CompileStats(countries) {
+    var numCountries = countries.length;
+    var regionsDict = {};
+    var subregionsDict = {};
+
+    countries.forEach(country => {
+        var region = country.region;
+        var subregion = country.sub_region;
+
+        if (regionsDict.hasOwnProperty(region)) {
+            regionsDict[region] = regionsDict[region] + 1;
+        }
+        else {
+            regionsDict[region] = 1;
+        }
+
+        if (subregionsDict.hasOwnProperty(subregion)) {
+            subregionsDict[subregion] = subregionsDict[subregion] + 1;
+        }
+        else {
+            subregionsDict[subregion] = 1;
+        }
+    });
+
+    return [numCountries, regionsDict, subregionsDict];
 }
 
 // Creates the div based on the passed country information

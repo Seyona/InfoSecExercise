@@ -57,7 +57,7 @@ async def search_by_county_code(code: str):
             return PlainTextResponse(response.json()["message"], response.status_code)
     else:
         return PlainTextResponse("Passed Country code is not properly formatted. They should be 2 to 3 Alphabetical "
-                                 "characters",status_code=400)
+                                 "characters", status_code=400)
 
 
 @app.get("/search/CountryName/{name}", tags=["SCountry,CountrySearch"])
@@ -98,4 +98,4 @@ async def search_by_country_name(name: str):
         else:
             return PlainTextResponse(response.json()["message"], response.status_code)
     else:
-        return PlainTextResponse("Country name should only contain Alphabetical characters" ,status_code=400)
+        return PlainTextResponse("Country name should only contain Alphabetical characters", status_code=400)

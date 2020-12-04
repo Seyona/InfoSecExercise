@@ -51,24 +51,26 @@ function CreateCountryDiv(country) {
             countryDiv.style.textAlign = "center";
 
             // Create the first span for the Country's name and picture
-            var namePicSpan = document.createElement('span');
-            namePicSpan.class = "name-picture";
-            namePicSpan.style.display = "inline-block";
-            namePicSpan.style.textAlign = "left";
+            var namePicDiv = document.createElement('div');
+            namePicDiv.class = "name-picture";
+            namePicDiv.style.display = "inline-block";
+            namePicDiv.style.textAlign = "left";
+            namePicDiv.setAttribute('height','100');
+            namePicDiv.setAttribute('width', '210');
 
             var picLabel = document.createElement('label');
             picLabel.setAttribute("for", country.alpha3);
             picLabel.innerHTML = country.full_name;
-            namePicSpan.appendChild(picLabel);
+            namePicDiv.appendChild(picLabel);
 
             var breakTag = document.createElement('br');
-            namePicSpan.appendChild(breakTag);
+            namePicDiv.appendChild(breakTag);
 
             var svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
             svg.setAttribute('height', '100');
             svg.setAttribute('width', '200');
             svg.setAttribute('id', country.alpha3);
-            namePicSpan.appendChild(svg);
+            namePicDiv.appendChild(svg);
 
             var pic = document.createElementNS('http://www.w3.org/2000/svg','image');
             pic.setAttribute('height', '100');
@@ -77,14 +79,14 @@ function CreateCountryDiv(country) {
             pic.setAttribute('href', country.flag);
 
             svg.appendChild(pic);
-            countryDiv.appendChild(namePicSpan);
+            countryDiv.appendChild(namePicDiv);
 
             // Create the second span for the remaining Country information
 
-            var infoSpan = document.createElement('span');
-            infoSpan.name = "info";
-            infoSpan.style.display = "inline-block";
-            infoSpan.style.textAlign = "left";
+            var infoDiv = document.createElement('div');
+            infoDiv.name = "info";
+            infoDiv.style.display = "inline-block";
+            infoDiv.style.textAlign = "left";
 
             var infoList = document.createElement('ul');
             infoList.style.margin = "auto";
@@ -98,8 +100,8 @@ function CreateCountryDiv(country) {
             var languagesCSV = country.languages.join(", "); // convert the array of languages to a CSV for display
             createLi(infoList, "languages", languagesCSV);
 
-            infoSpan.appendChild(infoList);
-            countryDiv.appendChild(infoSpan);
+            infoDiv.appendChild(infoList);
+            countryDiv.appendChild(infoDiv);
 
             // Apply new Div to parent div
              document.getElementById('country-info').appendChild(countryDiv);

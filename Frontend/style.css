@@ -1,6 +1,14 @@
-.center {
+.searchCenter {
   display: block;
   margin-left: auto;
   margin-right: auto;
+  text-align: center;
   width: 40%;
+}
+
+.country_info_center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 70%;
 }

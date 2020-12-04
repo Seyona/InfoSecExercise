@@ -3,6 +3,7 @@ import re
 import json
 
 from fastapi import FastAPI, HTTPException
+from fastapi.responses import PlainTextResponse
 from fastapi.middleware.cors import CORSMiddleware
 from countryData import Country
 
@@ -48,14 +49,13 @@ async def search_by_county_code(code: str):
 
             return {"data": countryJson}
         elif response.status_code == 404:
-            raise HTTPException(status_code=404, detail="A country with the given code does not exist,"
-                                                        " or there is a connection issue to the external API.")
+            return PlainTextResponse("A country with the given code does not exist,or there is a connection issue to "
+                                     "the external API.", status_code=404)
         else:
-            raise HTTPException(status_code=response.status_code, detail=response.json()["message"])
-
+            return PlainTextResponse(response.json()["message"], response.status_code)
     else:
-        raise HTTPException(status_code=400, detail="Passed Country code is not properly formatted."
-                                                    "They should be 2 to 3 Alphabetical characters")
+        return PlainTextResponse("Passed Country code is not properly formatted. They should be 2 to 3 Alphabetical "
+                                 "characters",status_code=400)
 
 
 @app.get("/search/CountryName/{name}", tags=["SCountry,CountrySearch"])
@@ -85,9 +85,9 @@ async def search_by_country_name(name: str):
             return {"data": json.dumps(countries)}
 
         elif response.status_code == 404:
-            raise HTTPException(status_code=404, detail="A country with the given name does not exist,"
-                                                        " or there is a connection issue to the external API.")
+            return PlainTextResponse("A country with the given name does not exist,"
+                                     " or there is a connection issue to the external API.", status_code=404)
         else:
-            raise HTTPException(status_code=response.status_code, detail=response.json()["message"])
+            return PlainTextResponse(response.json()["message"], response.status_code)
     else:
-        raise HTTPException(status_code=400, detail="Country name should only contain Alphabetical characters")
+        return PlainTextResponse("Country name should only contain Alphabetical characters" ,status_code=400)

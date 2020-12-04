@@ -96,6 +96,7 @@ function CreateCountryDiv(country) {
             createLi(infoList, "alpha3", country.alpha3);
             createLi(infoList, "population", country.population);
             createLi(infoList, "region", country.region);
+            createLi(infoList, "subregion", country.sub_region)
 
             var languagesCSV = country.languages.join(", "); // convert the array of languages to a CSV for display
             createLi(infoList, "languages", languagesCSV);

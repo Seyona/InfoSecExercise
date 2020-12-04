@@ -10,7 +10,7 @@ class Country:
         self.alpha3 = data["alpha3Code"]
         self.flag = data["flag"]
         self.region = data["region"]
-        self.region = data["subregion"]
+        self.sub_region = data["subregion"]
         self.population = numerize.numerize(int(data["population"]))
         self.languages = []
         for lang in data["languages"]:

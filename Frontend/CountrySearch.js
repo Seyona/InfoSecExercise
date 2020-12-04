@@ -18,7 +18,8 @@ async function SearchCountry() {
     var country = document.getElementById('country-search').value;
     var searchType = document.getElementById('search-type').value;
 
-    var countryInfoDiv = document.getElementById('country-data');
+    var countryInfoDiv = document.getElementById('country-info');
+    countryInfoDiv.innerHTML = ""; // Make a clean slate for each search
 
     if (searchType === 'cc') {
         let countryData = await GetCountryByCountryCode(country);

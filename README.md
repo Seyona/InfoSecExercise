@@ -1,5 +1,5 @@
 # InfoSec Exercise
-Python 3.8 is required to run the webserver 
+Python 3.8 is required to run the FASTAPI and web server 
 
 To install backend requirements run:
 

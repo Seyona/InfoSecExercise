@@ -38,7 +38,9 @@ async function SearchCountry() {
                 var br = document.createElement('br');
                 document.getElementById('country-info').appendChild(br);
             });
-            CompileStats(countries);
+            var stats = CompileStats(countries);
+            PopulateCountryStatsDiv(stats);
+
         }
     }
 }
@@ -73,6 +75,37 @@ function CompileStats(countries) {
     });
 
     return [numCountries, regionsDict, subregionsDict];
+}
+
+/**
+    Populates the country-stats div
+    Takes an array of data expected input is:
+        [0] : Total number of countries (int)
+        [1] : The regions and their number of occurrences (dict)
+        [2] : The subregions and their number of occurrences (dict)
+*/
+function PopulateCountryStatsDiv(countryStats) {
+
+    var regionList = document.getElementById("region-list");
+    var subregionList = document.getElementById("subregion-list");
+
+    var statsDiv = document.getElementById("country-stats");
+    if (statsDiv.firstChild.outerHTML !== "<hr>") {
+        statsDiv.insertBefore(document.createElement("hr"), statsDiv.firstChild);
+    }
+
+    document.getElementById("country-pop").innerHTML = "Total Countries Visited: <b>" + countryStats[0] + "</b>";
+
+    regionList.innerHTML = "";
+    subregionList.innerHTML = "";
+
+    for (const region in countryStats[1]) {
+        createLi(regionList, region, countryStats[1][region]);
+    }
+
+    for (const subregion in countryStats[2]) {
+        createLi(subregionList, subregion, countryStats[2][subregion]);
+    }
 }
 
 // Creates the div based on the passed country information

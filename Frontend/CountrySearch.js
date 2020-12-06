@@ -110,68 +110,68 @@ function PopulateCountryStatsDiv(countryStats) {
 
 // Creates the div based on the passed country information
 function CreateCountryDiv(country) {
-    // Create the div for the country information
-            var countryDiv = document.createElement('div');
-            countryDiv.id = country.alpha2;
-            countryDiv.name = country.alpha2;
-            countryDiv.style.paddingLeft = "500px"; // Proof of concept to show that the elements should be centered
 
-            // Create the first span for the Country's name and picture
-            var namePicDiv = document.createElement('div');
-            namePicDiv.class = "name-picture";
-            namePicDiv.style.display = "inline-block";
-            namePicDiv.style.textAlign = "left";
-            namePicDiv.setAttribute('height','100');
-            namePicDiv.setAttribute('width', '210');
+    var countryTable = document.createElement('table');
+    countryTable.id = country.alpha2;
+    countryTable.name = country.alpha2;
+    countryTable.style.paddingLeft = "600px"; // Padding to "fake" centering for proof of concept
 
-            var picLabel = document.createElement('label');
-            picLabel.setAttribute("for", country.alpha3);
-            picLabel.innerHTML = country.full_name;
-            namePicDiv.appendChild(picLabel);
+    var tableBody = document.createElement('tbody');
+    var nameRow = document.createElement('tr');
+    var nameTd = document.createElement('td');
 
-            var breakTag = document.createElement('br');
-            namePicDiv.appendChild(breakTag);
+    nameTd.style.wordBreak = "break-word";
+    nameTd.style.width = "100px";
+    nameTd.innerHTML = country.full_name;
 
-            var svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-            svg.setAttribute('height', '100');
-            svg.setAttribute('width', '200');
-            svg.setAttribute('id', country.alpha3);
-            namePicDiv.appendChild(svg);
+    nameRow.appendChild(nameTd);
+    tableBody.appendChild(nameRow);
 
-            var pic = document.createElementNS('http://www.w3.org/2000/svg','image');
-            pic.setAttribute('height', '100');
-            pic.setAttribute('width', '200');
-            pic.setAttribute('id', country.alpha2 + "image");
-            pic.setAttribute('href', country.flag);
+    // Create the second row, this will contain the picture (first column) and list of information (second column)
+    var secondRow = document.createElement('tr');
+    var pictureCol = document.createElement('td');
+    var infoCol = document.createElement('td');
 
-            svg.appendChild(pic);
-            countryDiv.appendChild(namePicDiv);
+    // Create Picture Elements
+    var svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+    svg.setAttribute('height', '100');
+    svg.setAttribute('width', '200');
+    svg.setAttribute('id', country.alpha3);
 
-            // Create the second span for the remaining Country information
+    var pic = document.createElementNS('http://www.w3.org/2000/svg','image');
+    pic.setAttribute('height', '100');
+    pic.setAttribute('width', '200');
+    pic.setAttribute('id', country.alpha2 + "image");
+    pic.setAttribute('href', country.flag);
 
-            var infoDiv = document.createElement('div');
-            infoDiv.name = "info";
-            infoDiv.style.display = "inline-block";
-            infoDiv.style.textAlign = "left";
+    svg.appendChild(pic);
+    pictureCol.appendChild(svg);
+    secondRow.appendChild(pictureCol);
 
-            var infoList = document.createElement('ul');
-            infoList.style.margin = "auto";
-            infoList.style.listStyleType = "none";
+    // Construct information list
+    var infoList = document.createElement('ul');
+    infoList.style.margin = "auto";
+    infoList.style.listStyleType = "none";
 
-            createLi(infoList, "alpha2", country.alpha2);
-            createLi(infoList, "alpha3", country.alpha3);
-            createLi(infoList, "population", country.population);
-            createLi(infoList, "region", country.region);
-            createLi(infoList, "subregion", country.sub_region)
+    createLi(infoList, "alpha2", country.alpha2);
+    createLi(infoList, "alpha3", country.alpha3);
+    createLi(infoList, "population", country.population);
+    createLi(infoList, "region", country.region);
+    createLi(infoList, "subregion", country.sub_region)
 
-            var languagesCSV = country.languages.join(", "); // convert the array of languages to a CSV for display
-            createLi(infoList, "languages", languagesCSV);
+    var languagesCSV = country.languages.join(", "); // convert the array of languages to a CSV for display
+    createLi(infoList, "languages", languagesCSV);
 
-            infoDiv.appendChild(infoList);
-            countryDiv.appendChild(infoDiv);
+    infoCol.appendChild(infoList);
+    secondRow.appendChild(infoCol);
+    tableBody.appendChild(secondRow);
 
-            // Apply new Div to parent div
-             document.getElementById('country-info').appendChild(countryDiv);
+
+    // Apply the body to the table
+    countryTable.appendChild(tableBody);
+
+    // Apply table to parent div
+    document.getElementById('country-info').appendChild(countryTable);
 }
 
 // Creates a li for the passed Unordered List

@@ -2,13 +2,13 @@ import requests
 import re
 import json
 
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI
 from fastapi.responses import PlainTextResponse
 from fastapi.middleware.cors import CORSMiddleware
+from collections import OrderedDict
 from countryData import Country
 
 app = FastAPI()
-
 
 origins = [
     "http://localhost:63342",
@@ -86,11 +86,39 @@ async def search_by_country_name(name: str):
 
             countries.sort(key=lambda x: x.population, reverse=False)
             sorted_countries = []
+
+            # Stats to be compile, # of countries seen, regions, and sub regions seen and their occurrence rate
+            stats = {
+                "countries_seen": len(countries),
+                "regions": OrderedDict(),
+                "subregions": OrderedDict()
+            }
+
+            regions = dict()
+            subregions = dict()
+
             for country in countries:
+                region = country.region
+                subregion = country.sub_region
+
+                if region == "":
+                    region = "No Region"
+                if subregion == "":
+                    subregion = "No Subregion"
+
+                regions[region] = regions.get(region, 0) + 1
+                subregions[subregion] = subregions.get(subregion, 0) + 1
+
                 country.numerizePopulation()
                 sorted_countries.append(country.__dict__)
 
-            return {"data": json.dumps(sorted_countries)}
+            for region in sorted(regions):  # Iterate over regions in alphabetical order and apply it to an ordered dict
+                stats["regions"][region] = regions[region]
+
+            for subregion in sorted(subregions):  # Do the same for subregions
+                stats["subregions"][subregion] = subregions[subregion]
+
+            return {"stats": json.dumps(stats), "data": json.dumps(sorted_countries)}
 
         elif response.status_code == 404:
             return PlainTextResponse("A country with the given name does not exist,"

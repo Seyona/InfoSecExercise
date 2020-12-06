@@ -38,7 +38,7 @@ async function SearchCountry() {
                 var br = document.createElement('br');
                 document.getElementById('country-info').appendChild(br);
             });
-            var stats = CompileStats(countries);
+            var stats = JSON.parse(countryData.stats);
             PopulateCountryStatsDiv(stats);
 
         }
@@ -46,43 +46,8 @@ async function SearchCountry() {
 }
 
 /**
-    Compiles the following items for the array of countries
-    Total number of Countries
-    A list of all regions and subregions and their appearances
-*/
-function CompileStats(countries) {
-    var numCountries = countries.length;
-    var regionsDict = {};
-    var subregionsDict = {};
-
-    countries.forEach(country => {
-        var region = country.region;
-        var subregion = country.sub_region;
-
-        if (regionsDict.hasOwnProperty(region)) {
-            regionsDict[region] = regionsDict[region] + 1;
-        }
-        else {
-            regionsDict[region] = 1;
-        }
-
-        if (subregionsDict.hasOwnProperty(subregion)) {
-            subregionsDict[subregion] = subregionsDict[subregion] + 1;
-        }
-        else {
-            subregionsDict[subregion] = 1;
-        }
-    });
-
-    return [numCountries, regionsDict, subregionsDict];
-}
-
-/**
     Populates the country-stats div
-    Takes an array of data expected input is:
-        [0] : Total number of countries (int)
-        [1] : The regions and their number of occurrences (dict)
-        [2] : The subregions and their number of occurrences (dict)
+    Takes an object parsed from the "stats" item from the API
 */
 function PopulateCountryStatsDiv(countryStats) {
 
@@ -94,17 +59,17 @@ function PopulateCountryStatsDiv(countryStats) {
         statsDiv.insertBefore(document.createElement("hr"), statsDiv.firstChild);
     }
 
-    document.getElementById("country-pop").innerHTML = "Total Countries Visited: <b>" + countryStats[0] + "</b>";
+    document.getElementById("country-pop").innerHTML = "Total Countries Seen: <b>" + countryStats.countries_seen + "</b>";
 
     regionList.innerHTML = "";
     subregionList.innerHTML = "";
 
-    for (const region in countryStats[1]) {
-        createLi(regionList, region, countryStats[1][region]);
+    for (const region in countryStats.regions) {
+        createLi(regionList, region, countryStats.regions[region]);
     }
 
-    for (const subregion in countryStats[2]) {
-        createLi(subregionList, subregion, countryStats[2][subregion]);
+    for (const subregion in countryStats.subregions) {
+        createLi(subregionList, subregion, countryStats.subregions[subregion]);
     }
 }
 

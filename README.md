@@ -1,5 +1,5 @@
 # InfoSec Exercise
-Python 3.8 is required to run the webserver 
+Python 3.8 is required to run the FASTAPI and web server 
 
 To install backend requirements run:
 
@@ -9,7 +9,7 @@ To start the api server run:
 
 ` py Backend/main.py `
 
-You will also need to host a your own webserver with python. To do so, cd to the directory **above** the InfosecExercise folder and run
+You will also need to host a your own webserver with python. To do so, navigate to the directory **ABOVE** the InfosecExercise folder and run
 
 `py -m http.server`
 
